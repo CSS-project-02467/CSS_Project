@@ -22,7 +22,7 @@ def get_page_contributors(pagename):
     usernames = [user for user in contributors if isbot(user)]
     return {pagename: usernames}
 
-last_df = pd.read_pickle('data/pages_dataframe_140000_to_350000.pkl')
+last_df = pd.read_pickle('data/intermediary/pages_dataframe_140000_to_350000.pkl')
 save_point = 350000
 start_from = list(last_df['name'])[-1]
 print(start_from)
@@ -91,3 +91,13 @@ def only_bots(page):
 pages_dataframe['bots'] = pages_dataframe.apply(only_bots, axis=1)
 
 pd.to_pickle(pages_dataframe, f'data/pages_dataframe_{save_point}_to_{save_point+counter}.pkl')
+
+def get_bot_data(bot_name):
+    site = pywikibot.Site('da', 'wikipedia')
+    bot = pywikibot.User(site, bot_name)
+    edit_count = bot.editCount()
+    return {'edit_count': edit_count}
+
+bots_dataframe = pd.concat([bots_dataframe, bots_dataframe['name'].apply(lambda x: pd.Series(get_bot_data(x)))], axis=1)
+pd.to_pickle(bots_dataframe, 'data/bots_dataframe')
+bots_dataframe
