@@ -10,6 +10,7 @@
     <div class="container">
         <h1>Analyzing bot interaction on the Danish Wikipedia</h1>
         <h4>A project in Computational Social Science at the Danish Technical University</h4>
+        <h5> For the code and detailed analysis, see the <a href="https://nbviewer.org/github/CSS-project-02467/CSS_Project/blob/website2/wikipedia.ipynb">explainer notebook.</a></h5>
         <p>For many years now Wikipedia has been one of the most important sources of information
             on the internet, with millions of articles in all the world's major languages. Relying solely
             on the collaboration of strangers, Wikipedia has gone from being a radical experiment in free
@@ -28,12 +29,14 @@
         <p>By using the python library 'pywikibot' we gathered data on almost
             all pages on the Danish Wikipedia and logged which bots had contributed
         to them, as well as to which categories they belong. We also collected various data on the
-            bots, like how many edits they have made in total. We then constructed a
+            bots, like how many edits they have made in total (both datasets can be downloaded on the 'Data Set' page).
+            We then constructed a
         graph where the nodes are bots and two bots have an edge between them if
-        they have contributed to the same page. Looking at the graph it is obvious
-        that this is a very connected graph, where the nodes have many, many connections.
+        they have contributed to the same page. Looking at the graph displayed in figure 1 it is obvious
+        that this is an extremely connected graph, where the nodes have many, many connections.
         In fact, almost 25% of all possible links are present in this graph. By using the Louvain algorithm
-        we detected two different communities in the graph, represented by the color of the nodes.</p>
+        we detected two different communities in the graph, represented by the color of the nodes, with respectively
+            119 and 78 bots in each.</p>
       </div>
 
         <div class="two-images">
@@ -45,27 +48,30 @@
         </div>
         </div>
         <div class="full-width">
-        <p> In order to make sense of the graph we turn to the degree distribution. We see that it is quite
-        wide, and with a very pronounced right-skew. This means that most of the bots have at one point or
+        <p> In order to make sense of the graph we turn to the degree distribution (figure 2). We see that it has
+            a very pronounced right-skew. This means that most of the bots have at one point or
         another collaborated with most of the other bots. This is quite interesting, since we often observe
         a left-skew in human networks, where most people only work with a handful of those around them. However,
-        when we look at the page edit counts for the bots, we see a heavy left-skew, meaning that most
-        of the bots have contributed to a low/moderate amount of pages. How can we reconcile these observations?
+        when we look at the page edit counts for the bots (figure 3), we see a heavy left-skew (the bins are on a log scale),
+            meaning that most
+        of the bots have contributed to a low/moderate amount of pages. How can we reconcile these two observations?
         We found that there are quite a few pages which a large number of bots have contributed to.
-        Pages like those for major countries or religious figures often have more than 50 bots contributing to them.
+        Some pages for major countries or religious figures often have more than 50 bots contributing to them.
         We found, that the set of bots having contributed to the 5 most contributed to pages made up over 50% of
-        the set of all bots. This explains the mystery.</p>
+        the set of all bots. This explains how most bots are highly connected while at the same time not having edited very
+            many pages.</p>
         </div>
 
       <div class="image-right">
         <div class="text">
           <p>We can take a look at the relationship between the degree of a node (the number of bots a bot has collaborated
           with) and the various contribution metrics like page edit count, total edit count, and number of pages where
-          the bot is the only automated contributor. We see a power-law at play, where the more connected a bot is
+          the bot is the only automated contributor (see figure 4). We see a power-law at play, where the more connected a bot is
           the higher edit counts it tends to have, with an extreme acceleration of the trend towards higher levels of
           degree. This, together with the analysis in the preceding paragraph, seems to tell us that many bots have
-          contributed to a selection of large pages, making them fairly connected. However, the most connected bots have
-          come into contact with many of the less connected bots by virtue of their extremely high edit counts.</p>
+          contributed to a selection of large pages, making them quite well connected. However, the most connected bots have
+          come into contact with many of the less connected bots by virtue of their extremely high edit counts.
+              This helps explain the sharp trend towards the end of the scale.</p>
         </div>
         <div class="image">
             <figure>
@@ -91,44 +97,50 @@
       </div>
 
       <div class="full-width">
-        <p>So what are these bots contributing with? We performed textual analysis on the meta-contributions of each
+        <p>So what are these bots contributing with? We performed textual analysis on the contribution meta-text of each
           bot, detailing the gist of each of their edits. By tokenizing the edits of each bot and finding the 10 most
           frequent tokens for each bot, we were able to get an idea of their purpose. By collecting all top 10 tokens
           by community, we constructed two corpuses, which we compared and contrasted using TF-IDF analysis. The top 10
-          terms for each community were as follows: ..., As can be seen, it is a little difficult to glean. However,
-          we see that the top 10 tokens of community 2 contains mainly language codes, which suggest to us that their
-          main purpose is to improve interoperability between the Danish Wikipedia and those of other languages.
-            To get a feel for the variety of contributions made by the bots we have selected 4 bots for scrutiny,
+          terms for each community can be seen in the top of figure 5. As can be seen, it is a little difficult to analyze. However,
+          we see that the top 10 tokens of community 2 contains mainly language codes, which suggest to us that the
+          main purpose of many of the bots in that community is to improve interoperability between the Danish Wikipedia and those of other languages.
+            To get a feel for the variety of contributions made by the bots we have selected 4 bots as examples,
         based on the top 10 tokens in their edits. </p>
       </div>
 
       <div class="image-right">
         <div class="text">
-          <p>‘Rubinbot’ is mostly occupied with maintaining interoperability between the Danish Wikipedia
-              and other language wikipedias, by linking similar/identical pages in the two languages.
-
-              ‘Steenthbot’ is the most active bot on the whole Danish wikipedia with contributions to
+              <p>‘‘Steenthbot’ (example edit translated: 'updating with newest data *** replacing existing text')
+                  is the most active bot on the whole Danish wikipedia with contributions to
               over 200,000 pages, and from the top 10 tokens we see that most of its work has to do with
-              updating backend data, and ‘cosmetic’ changes.
+              updating backend data, and ‘cosmetic’ changes. This is also one of the reasons why it is the
+              most well connected bot, having collaborated with all the other bots.</p>
 
-              ‘NivlekDaBot’ seems to be engaged in editing data on sports pages, notably on handball and football.
+              <p>‘‘NivlekDaBot’(example edit translated: 'Converting parameters in {{Infobox handball player}} to new format.')
+                  seems to be engaged in editing data on sports pages, notably on handball and football.</p>
 
-              Lastly, ‘DanKoehlBot’ only has five edits in total, all of them about correcting a common
+            <p>‘Rubinbot’ (example edit translated: '(Robot adds [[gl:Árbore (homónimos)]]')
+              is mostly occupied with maintaining interoperability between the Danish Wikipedia
+              and other language wikipedias, by linking similar/identical pages in the two languages. Being part
+              of community 0 this is not surprising, since we saw a connection between the community and working
+              on linguistic interoperability.</p>
+
+              <p>Lastly, ‘DanKoehlBot’(example edit translated: 'clean up, typos fixed: idag → i dag using [[en:WP:AWB|AWB]]')
+                  only has five edits in total, all of them about correcting a common
               Danish spelling mistake of ‘idag’ instead of ‘i dag’, meaning ‘yesterday’.</p>
         </div>
         <div class="image">
             <figure>
                 <img src="two_tables.png" alt="Image to the right">
-                <figcaption>Fig.5 Examples of 5 bots.</figcaption>
+                <figcaption>Fig.5 Top 10 terms by community and 4 example bots.</figcaption>
             </figure>
         </div>
 
       </div>
       <div class="full-width">
           <p>To summarize our findings:  We see that the network of bots is highly connected,
-              meaning that most bots have collaborated with most other bots at some point in time,
-              which is also reflected by the very high mean closeness centrality of 0.84.
-              The degree distribution is skewed to the right, with many highly connected bots,
+              meaning that most bots have collaborated with most other bots at some point in time.
+              The degree distribution is interestingly skewed to the right, with many highly connected bots,
               whereas the edit count distribution is skewed to the right, with most bots having a low to moderate amount of edits.
               We saw that this caused by a few pages, that many, many bots contribute to -
               pages of high importance like those on countries, religions, and global organizations.
@@ -137,7 +149,9 @@
 
                 <p>From our textual analysis we were able to gain insights into the various functions served by the bots
               ranging from fixing typos, to updating the way information is presented on sports pages,
-              linking the Danish wikipedia to the Persian wiki, to meta-data on bot activity.
+              linking the Danish wikipedia to the Persian wiki, to meta-data on bot activity. We were also able to
+                    detect the fact that a large group of bots seem to collaborate on ensuring interoperability
+                    between the Danish Wikipedia page and those of other languages.
               In making these tedious but important edits, the bots are clearly essential in ensuring
               that Wikipedia remain one of the top go-to places for information on the internet. </p>
       </div>
