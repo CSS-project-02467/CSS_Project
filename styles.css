@@ -1,4 +1,102 @@
-.networks{
-    width: 300px;
-    height: auto;
+body {
+    margin: 0;
+    padding: 0;
+    background: linear-gradient(to bottom, #f0f0f0, #ffffff); /* Grey gradient */
+    font-family: Arial, sans-serif;
 }
+
+.container {
+    width: 80%;
+    margin: 100px auto;
+    text-align: left;
+}
+
+h1 {
+    color: #333;
+}
+
+p {
+    color: #666;
+}
+
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    margin-top: 20px;
+    background-color: #ccc; /* Grey button */
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    position: fixed;
+    top: 20px;
+}
+
+.btn:hover {
+    background-color: #999; /* Darker grey on hover */
+}
+
+/* Position buttons in the upper right corner */
+.btn-main {
+    right: 260px;
+}
+
+.btn-dataset {
+    right: 147px;
+}
+
+.btn-about {
+    right: 55px;
+}
+
+.container2 {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.image-right,
+.image-left {
+  display: flex;
+  flex-direction: row;
+}
+
+.image-right .text,
+.image-left .text {
+  flex: 1;
+}
+
+.image-right .image img,
+.image-left .image img {
+  max-width: 100%;
+}
+
+.image-right {
+  margin-bottom: 20px;
+}
+
+.image-left {
+  margin-bottom: 20px;
+}
+
+.two-images {
+  display: flex;
+  justify-content: space-between;
+}
+
+.two-images .image {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.two-images .image:last-child {
+  margin-right: 0;
+}
+
+.two-images .image img {
+  max-width: 100%;
+}
+
