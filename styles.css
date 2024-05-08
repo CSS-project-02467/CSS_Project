@@ -7,7 +7,9 @@ body {
 
 .container {
     width: 80%;
-    margin: 100px auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 100px;
     text-align: left;
 }
 
@@ -72,6 +74,8 @@ p {
 .image-right .image img,
 .image-left .image img {
   max-width: 100%;
+    max-height: 700px;
+    margin-left: 30px
 }
 
 .image-right {
@@ -99,4 +103,12 @@ p {
 .two-images .image img {
   max-width: 100%;
 }
+
+figure {
+      margin: 0; /* Remove default margin */
+    }
+    figcaption {
+      text-align: center; /* Center the caption */
+      font-style: italic; /* Optionally style the caption */
+    }
 
