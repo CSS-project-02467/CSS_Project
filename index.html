@@ -25,65 +25,85 @@
     </div>
     <div class="container2">
       <div class="full-width">
-        <p>For many years now Wikipedia has been one of the most important sources of information
-            on the internet, with millions of articles in all the world's major languages. Relying solely
-            on the collaboration of strangers, Wikipedia has gone from being a radical experiment in free
-            information to a trustworthy source of knowledge. As the project has grown over the years,
-            automation has been vital in keeping articles up to date, making otherwise tedious edits,
-            and empowering contributors to make the most use of what they have to contribute.
-            We have taken a look at the bots that maintain and expand the Danish Wikipedia,
-            and here present the results of our analysis of how they work together, and how
-            network- and textual analysis can shed light on their contributions to the wiki.</p>
+        <p>By using the python library 'pywikibot' we gathered data on almost
+            all pages on the Danish Wikipedia and logged which bots had contributed
+        to them, as well as to which categories they belong. We also collected various data on the
+            bots, like how many edits they have made in total. We then constructed a
+        graph where the nodes are bots and two bots have an edge between them if
+        they have contributed to the same page. Looking at the graph it is obvious
+        that this is a very connected graph, where the nodes have many, many connections.
+        In fact, almost 25% of all possible links are present in this graph. By using the Louvain algorithm
+        we detected two different communities in the graph, represented by the color of the nodes.</p>
       </div>
+        <div class="two-images">
+        <div class="image">
+          <img src="graph_visual_community.png" alt="Image 2">
+        </div>
+        </div>
+        <div class="full-width">
+        <p> In order to make sense of the graph we turn to the degree distribution. We see that it is quite
+        wide, and with a very pronounced right-skew. This means that most of the bots have at one point or
+        another collaborated with most of the other bots. This is quite interesting, since we often observe
+        a left-skew in human networks, where most people only work with a handful of those around them. However,
+        when we look at the page edit counts for the bots, we see a heavy left-skew, meaning that most
+        of the bots have contributed to a low/moderate amount of pages. How can we reconcile these observations?
+        We found that there are quite a few pages which a large number of bots have contributed to.
+        Pages like those for major countries or religious figures often have more than 50 bots contributing to them.
+        We found, that the set of bots having contributed to the 5 most contributed to pages made up over 50% of
+        the set of all bots. This explains the mystery.</p>
+        </div>
       <div class="image-right">
         <div class="text">
-          <p>For many years now Wikipedia has been one of the most important sources of information
-            on the internet, with millions of articles in all the world's major languages. Relying solely
-            on the collaboration of strangers, Wikipedia has gone from being a radical experiment in free
-            information to a trustworthy source of knowledge. As the project has grown over the years,
-            automation has been vital in keeping articles up to date, making otherwise tedious edits,
-            and empowering contributors to make the most use of what they have to contribute.
-            We have taken a look at the bots that maintain and expand the Danish Wikipedia,
-            and here present the results of our analysis of how they work together, and how
-            network- and textual analysis can shed light on their contributions to the wiki.</p>
+          <p>We can take a look at the relationship between the degree of a node (the number of bots a bot has collaborated
+          with) and the various contribution metrics like page edit count, total edit count, and number of pages where
+          the bot is the only automated contributor. We see a power-law at play, where the more connected a bot is
+          the higher edit counts it tends to have, with an extreme acceleration of the trend towards higher levels of
+          degree. This, together with the analysis in the preceding paragraph, seems to tell us that many bots have
+          contributed to a selection of large pages, making them fairly connected. However, the most connected bots have
+          come into contact with many of the less connected bots by virtue of their extremely high edit counts.</p>
         </div>
         <div class="image">
-          <img src="network.png" alt="Image to the right">
+          <img src="degree_community.png" alt="Image to the right">
         </div>
       </div>
       <div class="image-left">
         <div class="image">
-          <img src="image-left.jpg" alt="Image to the left">
+          <img src="edit_distribution.png" alt="Image to the left">
         </div>
         <div class="text">
-          <p>For many years now Wikipedia has been one of the most important sources of information
-            on the internet, with millions of articles in all the world's major languages. Relying solely
-            on the collaboration of strangers, Wikipedia has gone from being a radical experiment in free
-            information to a trustworthy source of knowledge. As the project has grown over the years,
-            automation has been vital in keeping articles up to date, making otherwise tedious edits,
-            and empowering contributors to make the most use of what they have to contribute.
-            We have taken a look at the bots that maintain and expand the Danish Wikipedia,
-            and here present the results of our analysis of how they work together, and how
-            network- and textual analysis can shed light on their contributions to the wiki.</p>
+          <p>So what are these bots contributing with? We performed textual analysis on the meta-contributions of each
+          bot, detailing the gist of each of their edits. By tokenizing the edits of each bot and finding the 10 most
+          frequent tokens for each bot, we were able to get an idea of their purpose. By collecting all top 10 tokens
+          by community, we constructed two corpuses, which we compared and contrasted using TF-IDF analysis. The top 10
+          terms for each community were as follows: ..., As can be seen, it is a little difficult to glean. However,
+          we see that the top 10 tokens of community 2 contains mainly language codes, which suggest to us that their
+          main purpose is to improve interoperability between the Danish Wikipedia and those of other languages.</p>
         </div>
       </div>
       <div class="full-width">
-        <p>For many years now Wikipedia has been one of the most important sources of information
-            on the internet, with millions of articles in all the world's major languages. Relying solely
-            on the collaboration of strangers, Wikipedia has gone from being a radical experiment in free
-            information to a trustworthy source of knowledge. As the project has grown over the years,
-            automation has been vital in keeping articles up to date, making otherwise tedious edits,
-            and empowering contributors to make the most use of what they have to contribute.
-            We have taken a look at the bots that maintain and expand the Danish Wikipedia,
-            and here present the results of our analysis of how they work together, and how
-            network- and textual analysis can shed light on their contributions to the wiki.</p>
+        <p>To get a feel for the variety of contributions made by the bots we have selected 4 bots for scrutiny,
+        based on the top 10 tokens in their edits.</p>
       </div>
-      <div class="two-images">
-        <div class="image">
-          <img src="image1.jpg" alt="Image 1">
+      <div class="image-right">
+        <div class="text">
+          <p>To summarize our findings:  We see that the network of bots is highly connected,
+              meaning that most bots have collaborated with most other bots at some point in time,
+              which is also reflected by the very high mean closeness centrality of 0.84.
+              The degree distribution is skewed to the right, with many highly connected bots,
+              whereas the edit count distribution is skewed to the right, with most bots having a low to moderate amount of edits.
+              We saw that this caused by a few pages, that many, many bots contribute to -
+              pages of high importance like those on countries, religions, and global organizations.
+              This leads to a community that is challenging to partition neatly, even though some tendencies
+              can be seen where some bots are more focused on providing cross-references to wikis of other languages.</p>
+
+                <p>From our textual analysis we were able to gain insights into the various functions served by the bots
+              ranging from fixing typos, to updating the way information is presented on sports pages,
+              linking the Danish wikipedia to the Persian wiki, to meta-data on bot activity.
+              In making these tedious but important edits, the bots are clearly essential in ensuring
+              that Wikipedia remain one of the top go-to places for information on the internet. </p>
         </div>
         <div class="image">
-          <img src="image2.jpg" alt="Image 2">
+          <img src="edit_over_degree.png" alt="Image 2">
         </div>
       </div>
       <div class="full-width">

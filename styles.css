@@ -49,7 +49,7 @@ p {
 }
 
 .container2 {
-  max-width: 800px;
+  max-width: 1000px;
   margin: 0 auto;
 }
 
@@ -66,7 +66,7 @@ p {
 
 .image-right .text,
 .image-left .text {
-  flex: 1;
+  width: 100%; /* Adjusted width */
 }
 
 .image-right .image img,
